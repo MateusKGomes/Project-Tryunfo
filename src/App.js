@@ -5,9 +5,9 @@ import Form from './components/Form';
 const INITIAL_STATE = {
   cardName: '',
   cardDescription: '',
-  cardAttr1: 0,
-  cardAttr2: 0,
-  cardAttr3: 0,
+  cardAttr1: '0',
+  cardAttr2: '0',
+  cardAttr3: '0',
   cardImage: '',
   cardRare: 'normal',
   cardTrunfo: false,
@@ -48,6 +48,11 @@ class App extends React.Component {
     }), this.validationFields);
   };
 
+  onSaveButtonClick = (event) => {
+    event.preventDefault();
+    this.setState({ ...INITIAL_STATE });
+  };
+
   render() {
     const
       {
@@ -60,6 +65,7 @@ class App extends React.Component {
         <Form
           { ...this.state }
           onInputChange={ this.onInputChange }
+          onSaveButtonClick={ this.onSaveButtonClick }
         />
         <Card
           cardName={ cardName }
