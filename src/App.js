@@ -18,6 +18,8 @@ const INITIAL_STATE = {
 class App extends React.Component {
   state = {
     ...INITIAL_STATE,
+    registeredCards: [],
+
   };
 
   validationFields = () => {
@@ -35,14 +37,20 @@ class App extends React.Component {
      + +cardAttr3 <= duzentos;
 
     this.setState({
-      isSaveButtonDisabled: !(validationCardName && validationCardDescription
-        && validationCardImage && validationCardAttr1 && validationCardAttr2
-        && validationCardAttr3 && validationAtributes),
+      isSaveButtonDisabled: !(validationCardName
+        && validationCardDescription
+        && validationCardImage
+        && validationCardAttr1
+        && validationCardAttr2
+        && validationCardAttr3
+        && validationAtributes),
     });
   };
 
   onInputChange = ({ target }) => {
-    const { name, value } = target;
+    const { name } = target;
+    const value = name === 'cardTrunfo' ? target.checked : target.value;
+
     this.setState(() => ({
       [name]: value,
     }), this.validationFields);
@@ -50,6 +58,34 @@ class App extends React.Component {
 
   onSaveButtonClick = (event) => {
     event.preventDefault();
+    const
+      {
+        cardName, cardDescription, cardAttr1, cardAttr2,
+        cardAttr3, cardImage, cardRare, cardTrunfo,
+      } = this.state;
+
+    if (cardTrunfo) {
+      console.log(cardTrunfo);
+      this.setState({
+        hasTrunfo: false,
+        cardTrunfo: true,
+      });
+    }
+
+    const newCard = {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
+
+    this.setState(({ registeredCards }) => ({
+      registeredCards: [...registeredCards, newCard],
+    }));
     this.setState({ ...INITIAL_STATE });
   };
 
@@ -57,7 +93,7 @@ class App extends React.Component {
     const
       {
         cardName, cardDescription, cardAttr1, cardAttr2,
-        cardAttr3, cardImage, cardRare, cardTrunfo,
+        cardAttr3, cardImage, cardRare, cardTrunfo, registeredCards,
       } = this.state;
     return (
       <div>
@@ -76,8 +112,14 @@ class App extends React.Component {
           cardImage={ cardImage }
           cardRare={ cardRare }
           cardTrunfo={ cardTrunfo }
-
         />
+        <section>
+          {
+            registeredCards.map((element, index) => (
+              <Card key={ index } { ...element } />
+            ))
+          }
+        </section>
       </div>
     );
   }

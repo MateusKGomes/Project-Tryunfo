@@ -6,10 +6,9 @@ class Form extends Component {
     const
       {
         cardName, cardDescription, cardAttr1, cardAttr2,
-        cardAttr3, cardImage, cardRare, cardTrunfo,
+        cardAttr3, cardImage, cardRare, cardTrunfo, hasTrunfo,
         isSaveButtonDisabled, onInputChange, onSaveButtonClick,
       } = this.props;
-      // tirei o hasTrunfo;
     return (
       <>
         <div>Form</div>
@@ -108,6 +107,7 @@ class Form extends Component {
               id="cardTrunfo"
               checked={ cardTrunfo }
               onChange={ onInputChange }
+              disabled={ hasTrunfo }
             />
           </label>
           <button
@@ -138,7 +138,7 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  //   hasTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
