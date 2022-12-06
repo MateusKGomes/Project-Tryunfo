@@ -60,7 +60,7 @@ class App extends React.Component {
     const
       {
         cardName, cardDescription, cardAttr1, cardAttr2,
-        cardAttr3, cardImage, cardRare, cardTrunfo,
+        cardAttr3, cardImage, cardRare, cardTrunfo, hasTrunfo,
       } = this.state;
 
     const newCard = {
@@ -79,6 +79,11 @@ class App extends React.Component {
     }));
     this.setState({ ...INITIAL_STATE });
     if (cardTrunfo) {
+      console.log(cardTrunfo);
+      this.setState({
+        hasTrunfo: true,
+      });
+    } if (cardTrunfo === false && hasTrunfo) {
       this.setState({
         hasTrunfo: true,
       });
@@ -87,11 +92,10 @@ class App extends React.Component {
 
   removeItem = ({ target }) => {
     const getName = target.id;
-    const { registeredCards, cardTrunfo } = this.state;
+    const { registeredCards, hasTrunfo } = this.state;
 
     const verifyDeleted = registeredCards.filter((cards) => cards.cardName !== getName);
-    if (!cardTrunfo) {
-      console.log(cardTrunfo);
+    if (hasTrunfo) {
       this.setState({
         hasTrunfo: false,
       });

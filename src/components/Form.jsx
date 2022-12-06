@@ -97,23 +97,23 @@ class Form extends Component {
           </select>
         </label>
 
-        {!hasTrunfo ? (
-          <div>
-            <label htmlFor="cardTrunfo">
-              Super Trybe Trunfo
-              <input
-                type="checkbox"
-                data-testid="trunfo-input"
-                name="cardTrunfo"
-                id="cardTrunfo"
-                checked={ cardTrunfo }
-                onChange={ onInputChange }
-              />
+        {hasTrunfo ? (<p>Você já tem um Super Trunfo em seu baralho</p>)
+          : (
+            <div>
+              <label htmlFor="cardTrunfo">
+                Super Trybe Trunfo
+                <input
+                  type="checkbox"
+                  data-testid="trunfo-input"
+                  name="cardTrunfo"
+                  id="cardTrunfo"
+                  checked={ cardTrunfo }
+                  onChange={ onInputChange }
+                />
 
-            </label>
-          </div>
-        )
-          : (<p>Você já tem um Super Trunfo em seu baralho</p>)}
+              </label>
+            </div>
+          )}
         <div>
           <button
             data-testid="save-button"
