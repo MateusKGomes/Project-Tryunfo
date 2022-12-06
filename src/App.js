@@ -87,9 +87,15 @@ class App extends React.Component {
 
   removeItem = ({ target }) => {
     const getName = target.id;
-    const { registeredCards } = this.state;
+    const { registeredCards, cardTrunfo } = this.state;
 
     const verifyDeleted = registeredCards.filter((cards) => cards.cardName !== getName);
+    if (!cardTrunfo) {
+      console.log(cardTrunfo);
+      this.setState({
+        hasTrunfo: false,
+      });
+    }
     this.setState({
       registeredCards: verifyDeleted,
     });
