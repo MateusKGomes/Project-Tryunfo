@@ -10,106 +10,111 @@ class Form extends Component {
         isSaveButtonDisabled, onInputChange, onSaveButtonClick,
       } = this.props;
     return (
-      <>
-        <div>Form</div>
+      <div>
+        <label htmlFor="cardName">
+          Nome da carta:
+          <input
+            data-testid="name-input"
+            id="cardName"
+            type="text"
+            name="cardName"
+            value={ cardName }
+            onChange={ onInputChange }
+          />
+
+        </label>
+
+        <label htmlFor="cardDescription">
+          description
+          <textarea
+            data-testid="description-input"
+            name="cardDescription"
+            id="cardDescription"
+            value={ cardDescription }
+            onChange={ onInputChange }
+          />
+        </label>
+
+        <label htmlFor="cardAttr1">
+          attr1
+          <input
+            id="cardAttr1"
+            data-testid="attr1-input"
+            type="number"
+            name="cardAttr1"
+            value={ cardAttr1 }
+            onChange={ onInputChange }
+          />
+        </label>
+
+        <label htmlFor="cardAttr2">
+          attr2
+          <input
+            id="cardAttr2"
+            data-testid="attr2-input"
+            type="number"
+            name="cardAttr2"
+            value={ cardAttr2 }
+            onChange={ onInputChange }
+          />
+        </label>
+
+        <label htmlFor="cardAttr3">
+          attr3
+          <input
+            id="cardAttr3"
+            data-testid="attr3-input"
+            type="number"
+            name="cardAttr3"
+            value={ cardAttr3 }
+            onChange={ onInputChange }
+          />
+        </label>
+
+        <label htmlFor="cardImage">
+          image
+          <input
+            data-testid="image-input"
+            id="cardImage"
+            type="text"
+            name="cardImage"
+            value={ cardImage }
+            onChange={ onInputChange }
+          />
+        </label>
+        <label htmlFor="cardRare">
+          Seleciona a raridade da carta
+          <select
+            id="cardRare"
+            name="cardRare"
+            data-testid="rare-input"
+            value={ cardRare }
+            onChange={ onInputChange }
+          >
+            <option value="normal"> normal </option>
+            <option value="raro">raro</option>
+            <option value="muito raro">muito raro</option>
+          </select>
+        </label>
+
+        {!hasTrunfo ? (
+          <div>
+            <label htmlFor="cardTrunfo">
+              Super Trybe Trunfo
+              <input
+                type="checkbox"
+                data-testid="trunfo-input"
+                name="cardTrunfo"
+                id="cardTrunfo"
+                checked={ cardTrunfo }
+                onChange={ onInputChange }
+              />
+
+            </label>
+          </div>
+        )
+          : (<p>Você já tem um Super Trunfo em seu baralho</p>)}
         <div>
-          <label htmlFor="cardName">
-            Nome da carta:
-            <input
-              data-testid="name-input"
-              id="cardName"
-              type="text"
-              name="cardName"
-              value={ cardName }
-              onChange={ onInputChange }
-            />
-
-          </label>
-
-          <label htmlFor="cardDescription">
-            description
-            <textarea
-              data-testid="description-input"
-              name="cardDescription"
-              id="cardDescription"
-              value={ cardDescription }
-              onChange={ onInputChange }
-            />
-          </label>
-
-          <label htmlFor="cardAttr1">
-            attr1
-            <input
-              id="cardAttr1"
-              data-testid="attr1-input"
-              type="number"
-              name="cardAttr1"
-              value={ cardAttr1 }
-              onChange={ onInputChange }
-            />
-          </label>
-
-          <label htmlFor="cardAttr2">
-            attr2
-            <input
-              id="cardAttr2"
-              data-testid="attr2-input"
-              type="number"
-              name="cardAttr2"
-              value={ cardAttr2 }
-              onChange={ onInputChange }
-            />
-          </label>
-
-          <label htmlFor="cardAttr3">
-            attr3
-            <input
-              id="cardAttr3"
-              data-testid="attr3-input"
-              type="number"
-              name="cardAttr3"
-              value={ cardAttr3 }
-              onChange={ onInputChange }
-            />
-          </label>
-
-          <label htmlFor="cardImage">
-            image
-            <input
-              data-testid="image-input"
-              id="cardImage"
-              type="text"
-              name="cardImage"
-              value={ cardImage }
-              onChange={ onInputChange }
-            />
-          </label>
-          <label htmlFor="cardRare">
-            Seleciona a raridade da carta
-            <select
-              id="cardRare"
-              name="cardRare"
-              data-testid="rare-input"
-              value={ cardRare }
-              onChange={ onInputChange }
-            >
-              <option value="normal"> normal </option>
-              <option value="raro">raro</option>
-              <option value="muito raro">muito raro</option>
-            </select>
-          </label>
-          <label htmlFor="cardTrunfo">
-            Super Trybe Trunfo
-            <input
-              type="checkbox"
-              data-testid="trunfo-input"
-              name="cardTrunfo"
-              id="cardTrunfo"
-              checked={ cardTrunfo }
-              onChange={ onInputChange }
-              disabled={ hasTrunfo }
-            />
-          </label>
           <button
             data-testid="save-button"
             type="submit"
@@ -120,10 +125,8 @@ class Form extends Component {
           >
             Salvar
           </button>
-
         </div>
-
-      </>
+      </div>
 
     );
   }

@@ -26,7 +26,7 @@ class App extends React.Component {
     const { cardName, cardDescription, cardAttr1, cardAttr2,
       cardAttr3, cardImage } = this.state;
     const noventa = 90;
-    const duzentos = 210;
+    const duzentosDez = 210;
     const validationCardName = cardName.length > 0;
     const validationCardDescription = cardDescription.length > 0;
     const validationCardImage = cardImage.length > 0;
@@ -34,7 +34,7 @@ class App extends React.Component {
     const validationCardAttr2 = +cardAttr2 <= noventa && +cardAttr2 >= 0;
     const validationCardAttr3 = +cardAttr3 <= noventa && +cardAttr3 >= 0;
     const validationAtributes = +cardAttr1 + +cardAttr2
-     + +cardAttr3 <= duzentos;
+     + +cardAttr3 <= duzentosDez;
 
     this.setState({
       isSaveButtonDisabled: !(validationCardName
@@ -47,12 +47,11 @@ class App extends React.Component {
     });
   };
 
-  onInputChange = ({ target }) => {
-    const { name } = target;
-    const value = name === 'cardTrunfo' ? target.checked : target.value;
-
-    this.setState(() => ({
-      [name]: value,
+  onInputChange = ({ target: { name, type, value, checked } }) => {
+    const verifyType = type === 'checkbox' ? checked : value;
+    this.setState((prevState) => ({
+      ...prevState,
+      [name]: verifyType,
     }), this.validationFields);
   };
 
@@ -63,14 +62,6 @@ class App extends React.Component {
         cardName, cardDescription, cardAttr1, cardAttr2,
         cardAttr3, cardImage, cardRare, cardTrunfo,
       } = this.state;
-
-    if (cardTrunfo) {
-      console.log(cardTrunfo);
-      this.setState({
-        hasTrunfo: false,
-        cardTrunfo: true,
-      });
-    }
 
     const newCard = {
       cardName,
@@ -87,6 +78,21 @@ class App extends React.Component {
       registeredCards: [...registeredCards, newCard],
     }));
     this.setState({ ...INITIAL_STATE });
+    if (cardTrunfo) {
+      this.setState({
+        hasTrunfo: true,
+      });
+    }
+  };
+
+  removeItem = ({ target }) => {
+    const getName = target.id;
+    const { registeredCards } = this.state;
+
+    const verifyDeleted = registeredCards.filter((cards) => cards.cardName !== getName);
+    this.setState({
+      registeredCards: verifyDeleted,
+    });
   };
 
   render() {
@@ -97,7 +103,7 @@ class App extends React.Component {
       } = this.state;
     return (
       <div>
-        <h1>Tryunfo</h1>
+        <h1>Trunfo</h1>
         <Form
           { ...this.state }
           onInputChange={ this.onInputChange }
@@ -116,9 +122,23 @@ class App extends React.Component {
         <section>
           {
             registeredCards.map((element, index) => (
-              <Card key={ index } { ...element } />
+              <div key={ index }>
+
+                <Card key={ index } { ...element } />
+                <button
+                  data-testid="delete-button"
+                  type="button"
+                  name="delete"
+                  id={ element.cardName }
+                  onClick={ this.removeItem }
+                >
+                  Excluir
+                </button>
+
+              </div>
             ))
           }
+
         </section>
       </div>
     );
